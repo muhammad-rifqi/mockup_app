@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Data Card</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #030a16; /* Background gelap total luar card */
+            padding: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Custom Cyber/Sci-Fi Card Styling */
+        .cyber-card {
+            background-color: #020f24; /* Background navy gelap dalam card */
+            border: 2px solid #005691;
+            border-radius: 15px;
+            box-shadow: inset 0 0 15px rgba(0, 162, 255, 0.2), 0 0 20px rgba(0, 162, 255, 0.1);
+            color: #8ab4f8; /* Warna default teks detail */
+            max-width: 450px;
+            position: relative;
+        }
+
+        /* Efek sudut potong khas sci-fi (opsional, menggunakan border-radius bawaan gambar) */
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid rgba(0, 162, 255, 0.15);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .cyber-title {
+            color: #00d2ff; /* Warna cyan terang untuk judul */
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        /* List styling dengan garis putus-putus bawah */
+        .cyber-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(0, 86, 145, 0.5);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .cyber-list-item:last-child {
+            border-bottom: none; /* Hilangkan garis di item terakhir */
+        }
+
+        /* Label dengan dot biru di depannya */
+        .cyber-label {
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+        }
+
+        .cyber-label::before {
+            content: "•";
+            color: #00d2ff;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .cyber-value {
+            color: #ffffff; /* Angka/Nilai berwarna putih cerah */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    
+    <!-- Mulai Card -->
+    <div class="card cyber-card p-4">
+        <div class="card-body p-2">
+            <!-- Judul -->
+            <h5 class="cyber-title mb-4">DATA NEGARA</h5>
+            
+            <!-- Daftar Info -->
+            <div class="cyber-list-item">
+                <span class="cyber-label">Luas Wilayah</span>
+                <span class="cyber-value">1.904.569 KM²</span>
+            </div>
+            
+            <div class="cyber-list-item">
+                <span class="cyber-label">Jumlah Pulau</span>
+                <span class="cyber-value">17.504</span>
+            </div>
+            
+            <div class="cyber-list-item">
+                <span class="cyber-label">Garis Pantai</span>
+                <span class="cyber-value">99.093 KM</span>
+            </div>
+            
+            <div class="cyber-list-item">
+                <span class="cyber-label">Zona Waktu</span>
+                <span class="cyber-value">3</span>
+            </div>
+            
+            <div class="cyber-list-item">
+                <span class="cyber-label">Ibu Kota</span>
+                <span class="cyber-value">JAKARTA</span>
+            </div>
+        </div>
+    </div>
+    <!-- Selesai Card -->
+
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

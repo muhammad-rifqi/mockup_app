@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic HUD Map Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #010610; /* Latar belakang luar super gelap */
+            padding: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Container utama Panel Peta */
+        .hud-map-panel {
+            background-color: #011125;
+            border: 2px solid #005691;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            height: 380px;
+            position: relative;
+            box-shadow: inset 0 0 25px rgba(0, 162, 255, 0.25), 0 0 20px rgba(0, 86, 145, 0.4);
+            overflow: hidden;
+        }
+
+        /* Ornamen Sudut Potong Khas Sci-Fi (Kiri Atas & Kanan Atas) */
+        .hud-map-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 14px;
+            clip-path: polygon(30px 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%, 0 30px);
+        }
+
+        /* Lapisan Grid Transparan di Background Peta */
+        .map-grid-bg {
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 162, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 162, 255, 0.04) 1px, transparent 1px);
+            border-radius: 8px;
+        }
+
+        /* Tempat Menaruh Elemen Peta */
+        .map-content-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Siluet Kasar Peta Indonesia Menggunakan SVG Jalur */
+        .indonesia-svg {
+            width: 90%;
+            height: auto;
+            fill: #032142; /* Warna daratan biru gelap */
+            stroke: #00d2ff; /* Garis pantai cyan terang */
+            stroke-width: 1.5;
+            filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.4));
+            opacity: 0.85;
+        }
+
+        /* Kotak Bidik Pemindai (Targeting/Scanner Box) di Bagian Bawah */
+        .scanner-box {
+            position: absolute;
+            bottom: 40px;
+            left: 20%;
+            width: 65%;
+            height: 45%;
+            border: 1px dashed rgba(0, 210, 255, 0.6);
+            box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.1);
+            pointer-events: none;
+        }
+
+        /* Sudut Siku-Siku di Kotak Pemindai */
+        .scanner-box::before, .scanner-box::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-color: #00d2ff;
+            border-style: solid;
+        }
+        .scanner-box::before {
+            top: -2px; left: -2px;
+            border-width: 2px 0 0 2px;
+        }
+        .scanner-box::after {
+            bottom: -2px; right: -2px;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* Indikator Titik Koordinat Berkedip (Targeting Reticle) */
+        .target-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ff3b30; /* Titik merah target */
+            border-radius: 50%;
+            top: 55%;
+            left: 45%;
+            box-shadow: 0 0 10px #ff3b30, 0 0 20px #ff3b30;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        /* Lingkaran Crosshair Kecil Merah di Ujung Kanan Luar (Sesuai Gambar) */
+        .outer-crosshair {
+            position: absolute;
+            right: 8px;
+            bottom: 30%;
+            width: 14px;
+            height: 14px;
+            border: 1.5px solid #ff3b30;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+
+    <div class="hud-map-panel">
+        <div class="map-grid-bg"></div>
+        
+        <div class="map-content-wrapper">
+            
+            <svg class="indonesia-svg" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,80 L150,150 L220,220 L180,240 L130,220 L40,110 Z" />
+                <path d="M200,250 L280,255 L380,265 L375,275 L280,270 L195,260 Z" />
+                <path d="M220,110 L280,80 L350,100 L360,170 L300,210 L240,180 Z" />
+                <path d="M400,100 L440,100 L430,130 L470,140 L440,160 L450,200 L420,200 L410,140 Z" />
+                <path d="M580,180 L660,170 L720,210 L700,270 L640,260 L570,220 Z" />
+                <path d="M390,270 L430,270 M450,270 L490,272 M510,270 L550,265" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+
+            <div class="scanner-box"></div>
+
+            <div class="target-dot"></div>
+        </div>
+
+        <div class="outer-crosshair"></div>
+    </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
